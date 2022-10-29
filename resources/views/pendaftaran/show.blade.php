@@ -39,11 +39,11 @@
                 </tr>
                 <tr>
                     <td><strong>Asal Sekolah </strong></td>
-                    <td>:{{ $pendaftaran->asal_sekolah }}</td>
+                    <td>: {{ $pendaftaran->asal_sekolah }}</td>
                 </tr>
                 <tr>
                     <td><strong>Agama </strong></td>
-                    <td>:{{ $pendaftaran->getAgama() }}</td>
+                    <td>: {{ $pendaftaran->getAgama() }}</td>
                 </tr>
                 <tr>
                     <td><strong>Nilai Indonesia </strong></td>

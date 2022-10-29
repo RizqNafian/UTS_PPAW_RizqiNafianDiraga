@@ -21,6 +21,7 @@ class PendaftaranController extends Controller
             ->addColumn('action', function($row){
                 $btn = '
                 <a href="'.route('pendaftaran.show',$row->no_pendaftaran).'" class="btn btn-primary btn-sm fa fa-eye"></a>
+                <a href="'.route('pendaftaran.edit',$row->no_pendaftaran).'" class="edit btn btn-warning btn-sm fa fa-edit"></a> 
                 <a href="'.route('pendaftaran.destroy',$row->no_pendaftaran).'" class="btn btn-danger btn-sm fa fa-trash"></a>';
                 return $btn;
             })
@@ -68,6 +69,39 @@ class PendaftaranController extends Controller
             DB::rollback();
             return redirect()->route('pendaftaran.index')
             ->with('success', 'Pendaftaran dibatalkan semua, ada kesalahan...');
+        }
+    }
+    //Edit
+    public function edit($id)
+    {
+        $pendaftaran = Pendaftaran::find($id);
+        return view('pendaftaran.edit', compact('pendaftaran'));
+    }
+    //Update
+    public function update(Request $request,$id)
+    {
+        request()->validate(Pendaftaran::$rules);
+        DB::beginTransaction();
+        try{
+            $pegawai = Pendaftaran::find($id);
+            DB::table('daftar_siswa')->where('no_pendaftaran',$id)->update([
+                'nama'=>$request->nama,
+                'alamat'=>$request->alamat,
+                'tanggal_lahir'=>$request->tanggal_lahir,
+                'jenis_kelamin'=>$request->jenis_kelamin,
+                'asal_sekolah'=>$request->asal_sekolah,
+                'agama_id'=>$request->agama_id,
+                'nilai_ind'=>$request->nilai_ind,
+                'nilai_ipa'=>$request->nilai_ipa,
+                'nilai_mtk'=>$request->nilai_mtk,
+            ]);
+            DB::commit();
+            return redirect()->route('pendaftaran.show',$id)
+            ->with('success', 'Pegawai berhasil diubah');
+        } catch (\Throwable $e) {
+            DB::rollback();
+            return redirect()->route('pendaftaran.index')
+            ->with('success', 'Pegawai batal diubah, ada kesalahan');
         }
     }
     //Show

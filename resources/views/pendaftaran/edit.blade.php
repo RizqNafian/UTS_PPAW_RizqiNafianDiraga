@@ -15,8 +15,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <form method="POST" action="{{ route('pendaftaran.store') }}"
+                <form method="POST" action="{{ route('pendaftaran.update',$pendaftaran->no_pendaftaran) }}"
                     role="form" enctype="multipart/form-data">
+                    {{ method_field('PATCH') }}
                     @csrf
                     @include('pendaftaran.form')
                     <div class="box-footer">

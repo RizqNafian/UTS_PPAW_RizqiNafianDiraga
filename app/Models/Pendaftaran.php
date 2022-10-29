@@ -16,9 +16,9 @@ class Pendaftaran extends Model
         'jenis_kelamin' => 'required',
         'asal_sekolah'=>'required',
         'agama_id' => 'required',
-        'nilai_ind' => 'required',
-        'nilai_ipa' => 'required',
-        'nilai_mtk' => 'required',
+        'nilai_ind' => 'required|max:10',
+        'nilai_ipa' => 'required|max:10',
+        'nilai_mtk' => 'required|max:10',
     ];
     protected $fillable = ['nama','alamat','tanggal_lahir','jenis_kelamin','agama_id',
     'asal_sekolah','nilai_ind','nilai_ipa','nilai_mtk'];
@@ -28,17 +28,17 @@ class Pendaftaran extends Model
     }
     public function getAgama()
     {
-        if ($this->agama=="1")
+        if ($this->agama_id=="1")
             return "Islam";
-        elseif($this->agama=="2")
+        elseif($this->agama_id=="2")
             return "Katholik";
-        elseif($this->agama=="3")
+        elseif($this->agama_id=="3")
             return "Protistan";
-        elseif($this->agama=="4")
+        elseif($this->agama_id=="4")
             return "Hindu";
-        elseif($this->agama=="5")
+        elseif($this->agama_id=="5")
             return "Budha";
-        elseif($this->agama=="6")
+        elseif($this->agama_id=="6")
             return "Konghucu";
         else
             return "Tidak diketahui";
